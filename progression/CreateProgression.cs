@@ -6,15 +6,16 @@ namespace progression
     {
         private double a0;
         private double b;
+        private uint n;
 
-        public double Nmember(uint n)
+        public double Nmember()
         {
             return a0 + b * (n - 1);
         }
 
-        public double Nsum(uint n)
+        public double Nsum()
         {
-            return (a0 + Nmember(n)) * n / 2;
+            return (a0 + Nmember()) * n / 2;
         }
 
         public void SetInitial(double init)
@@ -27,6 +28,17 @@ namespace progression
             b = diff;
         }
 
+        public void SetN(uint number)
+        {
+            if (n != 0)
+                n = number;
+            else
+            {
+                Console.WriteLine("n should be more than 0");
+                n = 1;
+            }
+        }
+
         public double GetInitial()
         {
             return a0;
@@ -36,16 +48,31 @@ namespace progression
         {
             return b;
         }
+
+        public double GetN()
+        {
+            return n;
+        }
     }
     class CreateProgression
     {
         static void Main(string[] args)
         {
-            ArithmeticProgression prog = CreateArithmeticProgression();
-            Console.WriteLine("Enter number of searching term ");
-            uint n = uint.Parse(Console.ReadLine());
-            Console.WriteLine("n term of the progression is {0}", prog.Nmember(n));
-            Console.WriteLine("Sum of n terms of the progression is {0}", prog.Nsum(n));
+            try
+            {
+                ArithmeticProgression prog = CreateArithmeticProgression();
+                Console.WriteLine("Searched term of progression is {0}", prog.Nmember());
+                Console.WriteLine("Sum of {0} terms of the progression is {0}", prog.GetN(), prog.Nsum());
+            }
+            catch (OverflowException)
+            {
+                Console.WriteLine("n should be positive");
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("Enter only numbers");
+            }
+           
         }
 
         private static ArithmeticProgression CreateArithmeticProgression()
@@ -55,6 +82,8 @@ namespace progression
             prog.SetInitial(double.Parse(Console.ReadLine()));
             Console.WriteLine("Enter difference of progression: ");
             prog.SetDiff(double.Parse(Console.ReadLine()));
+            Console.WriteLine("Enter number of searching term of the progression");
+            prog.SetN(uint.Parse(Console.ReadLine()));
 
             return prog;
         }
