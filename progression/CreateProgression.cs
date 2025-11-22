@@ -44,8 +44,8 @@ namespace progression
             ArithmeticProgression prog = CreateArithmeticProgression();
             Console.WriteLine("Enter number of searching term ");
             uint n = uint.Parse(Console.ReadLine());
-            Console.WriteLine("n term of the progression is {0}", prog.Nmember(n));
-            Console.WriteLine("Sum of n terms of the progression is {0}", prog.Nsum(n));
+            Console.WriteLine("{0} term of the progression is {1}", n, prog.Nmember(n));
+            Console.WriteLine("Sum of {0} terms of the progression is {1}", n, prog.Nsum(n));
         }
 
         private static ArithmeticProgression CreateArithmeticProgression()
